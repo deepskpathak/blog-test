@@ -10,6 +10,7 @@ var axios = require('axios'); // Helper method to use REST based API's
 var Page = require('./components/Page'); // reusable
 var Comment = require('./components/Comment'); // reusable
 var ChildComments = require('./components/ChildComments'); // reusable
+var LikeButton = require('./components/LikeButton'); // reusable
 
 // DOM testing is pretty messy business unless something like selenium/rspec/jasmine being used. This is Sentry being used to automate DOM testing. 
 var sentryKey = '39e290a006c44d6aa249c8040a9f4bee';
@@ -22,7 +23,7 @@ var App = React.createClass({
 
     getInitialState: function() {
         return {
-            posts: []
+            posts: [],
         }
     },
 
@@ -50,8 +51,12 @@ var App = React.createClass({
                         <Page>
                             <div key={posts.id} className="col-md-12">
                                 <h2>{posts.title}</h2>
+                                <h4>
+                                    <span> {posts.author} </span>
+                                    <span className="label label-default"> - posted on {posts.createdOn}</span>
+                                    <span>&nbsp;&nbsp;<LikeButton /></span>
+                                </h4>
                                 <img src={posts.image} alt=""/>
-                                <h4><span>{posts.author}</span> <span className="label label-default">- posted on {posts.createdOn}</span></h4>
                                 <p>{posts.body}</p>
                                 <Comment commentData={posts.comments}></Comment>
                             </div>
